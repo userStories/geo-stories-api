@@ -3,6 +3,18 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName:{
+    type: Sequelize.STRING
+  },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get(){
+      return this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+    }
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -23,6 +35,10 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('salt')
     }
+  },
+  userType: {
+    type: Sequelize.ENUM('user', 'admin'),
+    defaultValue: 'user'
   },
   googleId: {
     type: Sequelize.STRING
