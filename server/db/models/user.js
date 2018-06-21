@@ -20,6 +20,19 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  profileImg: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://i1.wp.com/www.thisblogrules.com/wp-content/uploads/2010/02/batman-for-facebook.jpg?resize=250%2C280',
+    validate: {
+      isUrl: true
+    }
+  },
+  tagline: {
+    type: Sequelize.STRING(100),
+  },
+  locationStr: {
+    type: Sequelize.STRING(14)
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
