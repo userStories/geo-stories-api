@@ -12,6 +12,9 @@ const Post = db.define('post', {
     mediaType: {
         type: Sequelize.ENUM('video', 'image', 'audio', 'text-only')
     },
+    title: {
+        type: Sequelize.STRING
+    },
     text: {
         type: Sequelize.TEXT
     }, 
