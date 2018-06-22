@@ -22,6 +22,7 @@ router.get('/:id', async (req, res, next) =>{
 
 router.post('/', async (req, res, next) =>{
     try {
+        
         const newPost = await Post.create(req.body)
         res.json({message: 'New Post created Successfully', post: newPost})
     } catch(err){
