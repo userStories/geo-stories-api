@@ -20,6 +20,20 @@ router.get('/:id', async (req, res, next) =>{
     }
 })
 
+router.get('/user/:id', async (req, res, next) =>{
+    try {
+        const id = req.params.id
+        const post = await Post.findAll({
+            where: {
+                userId: id
+            }
+        })
+        res.json(post)
+    } catch(err){
+        next(err)
+    }
+})
+
 router.post('/', async (req, res, next) =>{
     try {
         
