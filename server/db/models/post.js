@@ -16,7 +16,14 @@ const Post = db.define('post', {
         type: Sequelize.STRING
     },
     text: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        validate: {
+            textLength(str){
+                if(str.length >= 500){
+                    throw new Error('Post is to long!')
+                }
+            }
+        }
     }, 
     mediaLink: {
         type: Sequelize.STRING

@@ -36,6 +36,11 @@ router.get('/user/:id', async (req, res, next) =>{
 })
 
 router.post('/', async (req, res, next) =>{
+    console.log('request received')
+    console.log('here is the req body', req.body)
+    const image = new Image
+    image.src = req.body.base64
+    console.log('imayge', image)
     try {
         
         const newPost = await Post.create(req.body)
