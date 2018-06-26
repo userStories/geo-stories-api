@@ -3,6 +3,7 @@ const {Category, Post, User} = require('../db/models')
 
 router.get('/', async (req, res, next) =>{
     try {
+        console.log('Hello')
         const posts = await Post.findAll()
         res.json(posts)
     } catch(err){
