@@ -60,19 +60,6 @@ cloudinary.config({
 
 let storage = cloudinaryStorage({
     cloudinary: cloudinary,
-    // folder: 'geostories',
-    // format: 'mov',
-    // allowedFormats: ['jpg', 'mov'],
-    // filename: function(req, file, cb) {
-    //     var foo = undefined;
-    //     console.log('req.file', file)
-    //     cb(undefined, `${file.originalname}`);
-    // },
-    // format: function(req, file, cb) {
-    //     console.log('is this running')
-    //     console.log('file', file)
-    //     cb(undefined, 'mov')
-    // },
     params: function(req, file, cb) {
         let type = null
         let splitter = file.originalname.split('.')[1]
