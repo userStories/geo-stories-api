@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category, Post, User} = require('../db/models')
+const {Category, Post, User, Comments} = require('../db/models')
 
 router.get('/', async (req, res, next) =>{
     try {
@@ -13,7 +13,12 @@ router.get('/', async (req, res, next) =>{
 router.get('/:id', async (req, res, next) =>{
     try {
         const id = req.params.id
-        const post = await Post.findById(id)
+        const post = await Post.findOne({
+            where: {
+                id: id
+            },
+            include: [{model: Comments}]
+        })
         res.json(post)
     } catch(err){
         next(err)
@@ -21,11 +26,11 @@ router.get('/:id', async (req, res, next) =>{
 })
 console.log('reached this part of the rtouututeuute')
 router.post('/', async (req, res, next) =>{
-    console.log('request received')
-    console.log('here is the req body', req.body)
-    const image = new Image
-    image.src = req.body.base64
-    console.log('imayge', image)
+    // console.log('request received')
+    // console.log('here is the req body', req.body)
+    // const image = new Image
+    // image.src = req.body.base64
+    // console.log('imayge', image)
     try {
         
         const newPost = await Post.create(req.body)

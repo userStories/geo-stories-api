@@ -2,8 +2,8 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
-const {Post, Category} = require('../server/db/models')
-const {Posts, Categories} = require('./data')
+const {Post, Category, Comments} = require('../server/db/models')
+const {Posts, Categories, CommentsData} = require('./data')
 
 /**
  * Welcome to the seed file! This seed file uses a newer language feature called...
@@ -28,11 +28,13 @@ async function seed() {
   ])
   const categories = await (Category.bulkCreate(Categories))
   const posts = await (Post.bulkCreate(Posts))
+  const comments = await (Comments.bulkCreate(CommentsData))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${posts.length} posts`)
   console.log(`seeded ${categories.length} categories`)
+  console.log(`seeded ${comments.length} comments`)
   console.log(`seeded successfully`)
 }
 
