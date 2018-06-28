@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
@@ -50,8 +50,8 @@ const createApp = () => {
   app.use(morgan('dev'))
 
   // body parsing middleware
-  // app.use(bodyParser.json({ limit: '50mb' }))
-  // app.use(bodyParser.urlencoded({extended: true, parameterLimit: 100000, limit: '50mb'}))
+  app.use(bodyParser.json({ limit: '50mb' }))
+  app.use(bodyParser.urlencoded({extended: true, parameterLimit: 100000, limit: '50mb'}))
 
   // compression middleware
   app.use(compression())
