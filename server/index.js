@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 8080
 const app = express()
 
 
+
+
 const socketio = require('socket.io')
 module.exports = app
 
@@ -48,7 +50,7 @@ const createApp = () => {
   app.use(morgan('dev'))
 
   // body parsing middleware
-  app.use(bodyParser.json())
+  app.use(bodyParser.json({ limit: '50mb' }))
   app.use(bodyParser.urlencoded({extended: true, parameterLimit: 100000, limit: '50mb'}))
 
   // compression middleware
@@ -65,6 +67,11 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  
+
+  
+
 
   // auth and api routes
   app.use('/auth', require('./auth'))

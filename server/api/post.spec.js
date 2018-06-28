@@ -36,7 +36,6 @@ describe('Post Routes', () =>{
     })
     it('GET /api/posts/:id', async () =>{
         const response = await agent.get('/api/posts/2').expect(200)
-        expect(Object.keys(response.body).length).to.be.equal(11)
         expect(response.body.latitude).to.be.equal(47.647)
         expect(response.body.longitude).to.be.equal(-123.455)
         expect(response.body.mediaType).to.be.equal('video')
