@@ -27,14 +27,14 @@ const Post = db.define('post', {
 });
 
 Post.hook('beforeCreate', (post) =>{
-    if(post.text.length >= 500){
+    if(post.text.length >= 200){
         throw new Error('Post is to long!')
     }
 })
 
 Post.hook('beforeBulkCreate', (post) =>{
     for(let i = 0; i < post.length; i++){
-        if(post[i].text.length >= 500){
+        if(post[i].text.length >= 200){
             throw new Error('Post is to long!')
         }
     }
