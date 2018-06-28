@@ -1,10 +1,11 @@
 const router = require('express').Router()
-const {Category, Post, User} = require('../db/models')
+const {Category, Post, User, Comments} = require('../db/models')
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer')
 const secrets = require('../../secrets')
 const path = require('path')
+
 
 router.get('/', async (req, res, next) =>{
     try {
@@ -18,7 +19,12 @@ router.get('/', async (req, res, next) =>{
 router.get('/:id', async (req, res, next) =>{
     try {
         const id = req.params.id
-        const post = await Post.findById(id)
+        const post = await Post.findOne({
+            where: {
+                id: id
+            },
+            include: [{model: Comments}]
+        })
         res.json(post)
     } catch(err){
         next(err)
