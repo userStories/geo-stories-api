@@ -86,11 +86,22 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
-  if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
+  if(Array.isArray(user)){
+    for(let i = 0; i < user.length; i++){
+      if(user[i].changed('password')){
+        user[i].salt = User.generateSalt()
+        user[i].password = User.encryptPassword(user[i].password(), user[i].salt())
+      }
+    }
+  } else {
+    if (user.changed('password')) {
+      user.salt = User.generateSalt()
+      user.password = User.encryptPassword(user.password(), user.salt())
+    }
   }
 }
 
+
+User.beforeBulkCreate(setSaltAndPassword)
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
