@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category, Post, User} = require('../db/models')
+const {Category, Post, User, Friends, TestOne, TestTwo} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -8,9 +8,14 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email', 'firstName', 'lastName']
+      attributes: ['id', 'email', 'firstName', 'lastName'],
+      include: [{model: User, as: 'Friend'}]
     })
     res.json(users)
+    // const testOne = await TestOne.findAll({
+    //     include: [{model: TestTwo}]
+    // })
+    // res.json(testOne)
   } catch (err) {
     next(err)
   }
@@ -19,8 +24,13 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) =>{
   try {
-      const id = req.params.id
-      const user = await User.findById(id)
+      console.log('get singleuser route id', req.params.id)
+      const user = await User.findOne({
+          where: {
+              id: req.params.id
+          },
+          include: [{model: User, as: 'Friend'}]
+      })
       res.json(user)
   } catch(err){
       next(err)
@@ -29,15 +39,29 @@ router.get('/:id', async (req, res, next) =>{
 
 router.put('/:id', async (req, res, next) =>{
   try {
+      console.log('req.body in user update route: ', req.body)
       const [rowsUpdated, updatedUser] = await User.update(
           req.body, {
               where: {
                   id: req.params.id
               },
+              include: [{model: User, as: 'Friend'}],
               returning: true
           }
       )
-      res.json({message: 'Updated User Successfully', post: updatedUser})
+    if(req.body.friendId && req.body.friendId !== req.params.id){
+        if(req.body.friend === 'add'){
+            const friendId = req.body.friendId
+            const newFriend = await User.findById(friendId)
+            updatedUser[0].addFriend(newFriend)
+        }
+        if(req.body.friend === 'remove'){
+            const friendId = req.body.friendId
+            const newFriend = await User.findById(friendId)
+            updatedUser[0].removeFriend(newFriend)
+        }
+    }
+      res.json({message: 'Updated User Successfully', user: updatedUser[0]})
   }catch(err){
       next(err)
   }
