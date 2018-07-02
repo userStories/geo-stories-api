@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) =>{
   try {
-      console.log('get singleuser route id', req.params.id)
       const user = await User.findOne({
           where: {
               id: req.params.id

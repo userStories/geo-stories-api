@@ -9,7 +9,6 @@ const path = require('path')
 
 router.get('/', async (req, res, next) =>{
     try {
-        console.log('Hello')
         const posts = await Post.findAll()
         res.json(posts)
     } catch(err){
@@ -41,21 +40,6 @@ router.get('/user/:id', async (req, res, next) =>{
             }
         })
         res.json(post)
-    } catch(err){
-        next(err)
-    }
-})
-
-router.post('/', async (req, res, next) =>{
-    console.log('request received')
-    console.log('here is the req body', req.body)
-    const image = new Image
-    image.src = req.body.base64
-    console.log('imayge', image)
-    try {
-        
-        const newPost = await Post.create(req.body)
-        res.json({message: 'New Post created Successfully', post: newPost})
     } catch(err){
         next(err)
     }
@@ -120,7 +104,6 @@ let parser = multer({
 
 
 router.post('/media', parser.any(), async (req, res, next) => {
-
     let mediaUrl = req.files[0].url
     try {
         res.send({ mediaUrl })
@@ -144,7 +127,8 @@ router.post('/', async (req, res, next) => {
             longitude: req.body.longitude.toFixed(8),
             latitude: req.body.latitude.toFixed(8),
             mediaLink: req.body.mediaLink,
-            mediaType: type
+            mediaType: type,
+            userId: req.body.userId
         })
         res.json({message: 'New Post created Successfully', post: newPost})
     } catch(err){
