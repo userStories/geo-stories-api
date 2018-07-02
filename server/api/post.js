@@ -9,7 +9,9 @@ const path = require('path')
 
 router.get('/', async (req, res, next) =>{
     try {
-        const posts = await Post.findAll()
+        const posts = await Post.findAll({
+            include: [{model: User}]
+        })
         res.json(posts)
     } catch(err){
         next(err)

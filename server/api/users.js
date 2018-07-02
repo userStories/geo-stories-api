@@ -9,8 +9,13 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email', 'firstName', 'lastName'],
-      include: [{model: User, as: 'Friend'}]
+      include: [{model: User, as: 'Friend'}],
     })
+    // const friends = await Friends.findAll({
+    //     where: {
+    //         FriendId: 2
+    //     }
+    // })
     res.json(users)
   } catch (err) {
     next(err)
@@ -25,7 +30,12 @@ router.get('/:id', async (req, res, next) =>{
           },
           include: [{model: User, as: 'Friend'}]
       })
-      res.json(user)
+      const friends = await Friends.findAll({
+          where: {
+              FriendId: req.params.id
+          }
+      })
+      res.json({user, friends})
   } catch(err){
       next(err)
   }
