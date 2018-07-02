@@ -74,7 +74,6 @@ let storage = cloudinaryStorage({
         } else if (splitter === 'mov') {
             type = 'video'
         }
-        console.log('file', file)
         cb(undefined, {
             resource_type: type,
             folder: 'geostories',
@@ -103,8 +102,21 @@ router.post('/media', parser.any(), async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        // const newPost = await Post.create(req.body)
-        // res.json({message: 'New Post created Successfully', post: newPost})
+        let type = null
+        if (req.body.mediaLink.indexOf('jpg') !== -1) {
+            type = 'image'
+          } else if (req.body.mediaLink.indexOf('mov')) {
+            type = 'video'
+          }
+        const newPost = await Post.create({
+            title: req.body.title,
+            text: req.body.text,
+            longitude: req.body.longitude.toFixed(8),
+            latitude: req.body.latitude.toFixed(8),
+            mediaLink: req.body.mediaLink,
+            mediaType: type
+        })
+        res.json({message: 'New Post created Successfully', post: newPost})
     } catch(err){
         console.error('reached error')
         next(err)
