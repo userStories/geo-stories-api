@@ -9,6 +9,7 @@ const path = require('path')
 
 router.get('/', async (req, res, next) =>{
     try {
+        console.log('Hello')
         const posts = await Post.findAll()
         res.json(posts)
     } catch(err){
@@ -26,6 +27,35 @@ router.get('/:id', async (req, res, next) =>{
             include: [{model: Comments}]
         })
         res.json(post)
+    } catch(err){
+        next(err)
+    }
+})
+
+router.get('/user/:id', async (req, res, next) =>{
+    try {
+        const id = req.params.id
+        const post = await Post.findAll({
+            where: {
+                userId: id
+            }
+        })
+        res.json(post)
+    } catch(err){
+        next(err)
+    }
+})
+
+router.post('/', async (req, res, next) =>{
+    console.log('request received')
+    console.log('here is the req body', req.body)
+    const image = new Image
+    image.src = req.body.base64
+    console.log('imayge', image)
+    try {
+        
+        const newPost = await Post.create(req.body)
+        res.json({message: 'New Post created Successfully', post: newPost})
     } catch(err){
         next(err)
     }

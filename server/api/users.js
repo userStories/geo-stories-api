@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category, Post, User, Friends, TestOne, TestTwo} = require('../db/models')
+const {Category, Post, User, Friends} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -12,15 +12,10 @@ router.get('/', async (req, res, next) => {
       include: [{model: User, as: 'Friend'}]
     })
     res.json(users)
-    // const testOne = await TestOne.findAll({
-    //     include: [{model: TestTwo}]
-    // })
-    // res.json(testOne)
   } catch (err) {
     next(err)
   }
 })
-
 
 router.get('/:id', async (req, res, next) =>{
   try {
@@ -67,11 +62,11 @@ router.put('/:id', async (req, res, next) =>{
   }
 })
 
-router.delete('/:id', async (req, res, next) =>{
-  await User.destroy({
-      where: {
-          id: req.params.id
-      }
-  })
-  res.json({message: 'Successfully deleted User'})
+router.delete('/:id', async (req, res, next) => {
+    await User.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.json({ message: 'Successfully deleted User' })
 })
