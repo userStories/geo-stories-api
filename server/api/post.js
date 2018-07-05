@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) =>{
             where: {
                 id: id
             },
-            include: [{model: Comments}]
+            include: [{model: Comments}, {model: User}]
         })
         res.json(post)
     } catch(err){
