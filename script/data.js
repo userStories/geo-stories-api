@@ -41,8 +41,7 @@ const Posts = [
     {latitude: 41.912240, longitude: -87.690466, mediaType: "image", title: "Cooking out", text: "Come by", mediaLink: 'https://scontent.ford4-1.fna.fbcdn.net/v/t1.0-9/36694054_100617157528185_1237110942441930752_n.jpg?_nc_cat=0&oh=737cff44265dde5ef1a28ab6bbc4c4a1&oe=5BE9A2BD', categoryId: 1, userId: 3},
     {latitude: 41.939511, longitude: -87.719167, mediaType: "image", title: "New music production studio coming", text: "in YOUR neighborhood. Meet Blake the engineer", mediaLink: 'https://scontent.ford4-1.fna.fbcdn.net/v/t1.0-9/36659444_100617770861457_5049311265692844032_n.jpg?_nc_cat=0&oh=f5b37c2dffa29591d067e14dbdf6cb7f&oe=5BD6CA81', categoryId: 1, userId: 4},
     {latitude: 41.890349, longitude: -87.646194, mediaType: "image", title: "Blue line", text: "Is it? It it? It it? It it?", mediaLink: 'https://scontent.ford4-1.fna.fbcdn.net/v/t1.0-9/36669884_100617570861477_311157972434681856_n.jpg?_nc_cat=0&oh=87aec882b4b320e92a4fc4893624aedf&oe=5BAAC86F', categoryId: 1, userId: 6},
-
-
+    
 
 ]
 
