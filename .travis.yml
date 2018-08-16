@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "user-stories-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: user-stories-api # see README
+  api_key:
+    secure: "B2N+XrK7hVuIr/HerzEtzXNGpuoGnFPxt+A1KFkFaeyHF7phg7q4B9SzshXxkCFg1WB2PxmfUtwbMygVH8FbqgIHKC4eS7KO98gJ+Rj1V2xYxk5iY4FEyyoYWYk6PUsnplj9ZdVMb2rmZEBEqou7ac5zpeTwVTucqsNQV0elRaMwjgQZOCeCPgGAcQ7+MZAcVqe4K0xoy6dH0MKkPAW9kn0jt/h0ACXd9YydTqKvH2Sp258+gMYm/PFkydd+c31UTGsvuNuS7slBgltskH1phrAnt5ZJc13tQfR/NFWzAxjUEMlZ4unexjguO3KymxS4uqsiYeKRXTBq21HzGomOuMFs+YTeIKfpBdnby6UJG5wbWwtlfnUs4jPr+qe5+TMPVwLiUaY5/i2d/+h/dW0IanqAa3CI9LfTe2hQLelwU1VN7qaiKYj4tldX++pBcvWN/hacIJfnITUZ2d/f8CAGdZ2Yq+SFig1muml7C2s5g96TTV0+z++ImmW8Fz0/V8w9BtUJ8OCk0YsyW1fzfRhGrxJ/SGvHkAmco2NxLLISV47UmSROD4GbOkp7urZwL64pp1dClzJDHr72SKA1+pJ3+eQn6siFC2J8GQmc2JSzA0T4GS7w+scTtsrwFVV/n10aLP6g8xwNe8rA5KKLysKpmwY51UccKfg8u9rwa6XtGV8=" # see README
